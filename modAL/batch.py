@@ -8,7 +8,7 @@ import numpy as np
 import scipy.sparse as sp
 from sklearn.metrics.pairwise import pairwise_distances, pairwise_distances_argmin_min
 
-from modAL.utils.data import data_vstack, modALinput
+from modAL.utils.data import data_vstack, modALinput, data_shape
 from modAL.models.base import BaseCommittee, BaseLearner
 from modAL.uncertainty import classifier_uncertainty
 
@@ -153,7 +153,7 @@ def ranked_batch(classifier: Union[BaseLearner, BaseCommittee],
     ceiling = np.minimum(unlabeled.shape[0], n_instances) - len(instance_index_ranking)
 
     # mask for unlabeled initialized as transparent
-    mask = np.ones(unlabeled.shape[0], np.bool)
+    mask = np.ones(data_shape(unlabeled)[0], np.bool)
 
     for _ in range(ceiling):
 
